@@ -6,13 +6,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                    sh 'docker build -t umermunirrr/test-node-app .'
+                    sh 'docker build -t mohsinm/test-node-app .'
             }
         }
         stage('Test') {
             steps {
                 sh 'docker container rm -f node || true'
-                sh 'docker container run -p 8001:8080 --name node -d umermunirrr/test-node-app'
+                sh 'docker container run -p 8001:8080 --name node -d mohsinm/test-node-app'
                 sh 'curl -I http://localhost:8001'
             }
         }
@@ -20,7 +20,7 @@ pipeline {
             steps{
                 script {
                     docker.withRegistry( '', registryCredential ) {
-                        sh 'docker push umermunirrr/test-node-app:latest'
+                        sh 'docker push mohsinm/test-node-app:latest'
                     }
                 }
             }
